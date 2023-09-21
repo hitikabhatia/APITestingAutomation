@@ -1,34 +1,186 @@
 {
 	"info": {
-		"_postman_id": "ced79cc6-dc34-4425-a7b7-facbbe08e881",
+		"_postman_id": "92558e3e-c5f0-4666-8c53-3dc282b43018",
 		"name": "API Testing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "16825267",
-		"_collection_link": "https://interstellar-crater-618961.postman.co/workspace/Deepak~bf826488-9c9f-45b5-b1c9-8f9f987aa2b6/collection/16825267-ced79cc6-dc34-4425-a7b7-facbbe08e881?action=share&creator=16825267&source=collection_link"
+		"_exporter_id": "29758293"
 	},
 	"item": [
 		{
-			"name": "Get Req",
+			"name": "GET Req",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"\r",
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
+							"pm.test(\"Response time is less than 200ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/1",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Req",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {\r\n        \"email\": \"smitha@test.in\",\r\n        \"first_name\": \"Smitha\",\r\n        \"last_name\": \"Menon\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Req",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": {        \r\n        \"id\": 5,\r\n        \"email\": \"smitha@test.in\",\r\n        \"first_name\": \"Test\",\r\n        \"last_name\": \"Name\"\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users/5",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Req",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{        \r\n    \"id\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Req For Check JSON values",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
 							"pm.test(\"Body matches string\", function () {\r",
 							"    pm.expect(pm.response.text()).to.include(\"Rachel\");\r",
 							"});\r",
-							"\r",
-							"pm.test(\"Your test name\", function () {\r",
+							"pm.test(\"ID Check\", function () {\r",
 							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData.data.id).to.eql(2);\r",
+							"    pm.expect(jsonData.data.id).to.eql(12);\r",
 							"});\r",
-							"\r",
+							"pm.test(\"Check last name \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.last_name).to.eql(\"Howell\");\r",
+							"});\r",
+							"pm.test(\"Check url \", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.support.url).contains(\"support-heading\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/12",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Req for Full Body Match",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
 							"var resp='{\"data\":{\"id\":2,\"email\":\"janet.weaver@reqres.in\",\"first_name\":\"Janet\",\"last_name\":\"Weaver\",\"avatar\":\"https://reqres.in/img/faces/2-image.jpg\"},\"support\":{\"url\":\"https://reqres.in/#support-heading\",\"text\":\"To keep ReqRes free, contributions towards server costs are appreciated!\"}}'\r",
-							" \r",
 							"pm.test(\"Body is correct\", function () {\r",
 							"    pm.response.to.have.body(resp);\r",
 							"});\r",
@@ -58,7 +210,7 @@
 			"response": []
 		},
 		{
-			"name": "POST Req",
+			"name": "Test Post Req",
 			"event": [
 				{
 					"listen": "test",
@@ -66,8 +218,7 @@
 						"exec": [
 							"pm.test(\"Successful POST request\", function () {\r",
 							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
-							"});\r",
-							""
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -78,49 +229,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"data\": {\r\n        \"email\": \"smitha@test.in\",\r\n        \"first_name\": \"Smitha\",\r\n        \"last_name\": \"Menon\"\r\n    }\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://reqres.in/api/users",
-					"protocol": "https",
-					"host": [
-						"reqres",
-						"in"
-					],
-					"path": [
-						"api",
-						"users"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(204);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{        \r\n    \"id\": 5\r\n}\r\n",
+					"raw": "{\r\n    \"name\": \"checking 2\",\r\n    \"job\": \"leader\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
